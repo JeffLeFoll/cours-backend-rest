@@ -1,0 +1,46 @@
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'java'
+
+compileJava {
+    sourceCompatibility = '1.8'
+    targetCompatibility = 1.8
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    compile "com.google.guava:guava:19.0"
+
+    compile "net.code-story:http:2.104"
+
+    compile "ch.qos.logback:logback-classic:1.1.6"
+    compile "org.slf4j:slf4j-api:1.7.21"
+
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.6'
+
+    compile 'io.swagger:swagger-annotations:1.5.8'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.3.0'
+    testCompile 'org.mockito:mockito-core:2.0.43-beta'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task copyToDep(type: Copy) {
+    into "$buildDir/dep"
+    from configurations.compile
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.1'
+}
+
+task stage(dependsOn: ["build", "copyToDep"])

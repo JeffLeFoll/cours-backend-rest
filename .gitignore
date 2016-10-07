@@ -1,0 +1,13 @@
+.gradle/
+build/
+
+#Fichiers Intellij
+.idea
+*.iml
+
+#Fichiers Eclipse
+.classpath
+.project
+.settings
+
+*.class
