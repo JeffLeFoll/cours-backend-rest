@@ -4,6 +4,9 @@ public class Acteur {
 
     private String nom;
 
+    public Acteur() {
+    }
+
     public Acteur(String nom) {
         this.nom = nom;
     }

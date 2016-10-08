@@ -5,6 +5,9 @@ public class Prix {
     private int valeur;
     private String devise;
 
+    public Prix() {
+    }
+
     public Prix(int valeur, String devise) {
         this.valeur = valeur;
         this.devise = devise;

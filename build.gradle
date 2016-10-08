@@ -39,8 +39,4 @@ task copyToDep(type: Copy) {
     from configurations.compile
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.1'
-}
-
 task stage(dependsOn: ["build", "copyToDep"])

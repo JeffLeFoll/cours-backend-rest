@@ -7,6 +7,7 @@ import net.codestory.http.annotations.Prefix;
 import net.codestory.http.annotations.Put;
 import net.codestory.http.errors.NotFoundException;
 import net.codestory.http.payload.Payload;
+import ubo.cours.serveur.Depot;
 import ubo.cours.serveur.model.CD;
 import ubo.cours.serveur.model.Prix;
 
@@ -18,33 +19,31 @@ public class CDRessource {
 
     @Post("/")
     public void creer(CD cd) {
-        ensembleDeCDs.add(cd);
+        ensembleDeCDs.ajouterDonnee(cd);
     }
 
     @Put("/:id")
     public Payload maj(String id, CD cd) {
-
+        ensembleDeCDs.majDonnees(id, cd);
         return new Payload(201);
     }
 
-    @Get("/")
+    @Get("")
     public List<CD> tousLesCDs() {
-        return NotFoundException.notFoundIfNull(ensembleDeCDs);
+        return NotFoundException.notFoundIfNull(ensembleDeCDs.getDonnees());
     }
 
     @Get("/:id")
     public CD trouve(String id) {
-        Optional<CD> cd = ensembleDeCDs.stream()
-                .filter(candidatLivre -> id.equals(candidatLivre.getId()))
-                .findFirst();
+        Optional<CD> cd = ensembleDeCDs.getDonnee(id);
 
         return NotFoundException.notFoundIfNull(cd.get());
     }
 
-    private List<CD> ensembleDeCDs;
+    private Depot<CD> ensembleDeCDs;
 
     public CDRessource() {
-        ensembleDeCDs = Lists.newArrayList(
+        List<CD> cds = Lists.newArrayList(
                 new CD("1", "Titre 1", "Chanteur 1", new Prix(10, "€"), "http://placehold.it/100x140"),
                 new CD("2", "Titre 2", "Chanteur 1", new Prix(5, "€"), "http://placehold.it/100x140"),
                 new CD("3", "Titre 3", "Chanteur 2", new Prix(15, "€"), "http://placehold.it/100x140"),
@@ -52,6 +51,9 @@ public class CDRessource {
                 new CD("5", "Titre 5", "Chanteur 2", new Prix(9, "€"), "http://placehold.it/100x140"),
                 new CD("6", "Titre 6", "Chanteur 4", new Prix(25, "€"), "http://placehold.it/100x140")
         );
+
+        ensembleDeCDs = new Depot<>();
+        ensembleDeCDs.initialiserDepot(cds);
     }
 }
 
