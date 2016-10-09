@@ -1,4 +1,4 @@
-package ubo.cours.serveur;
+package ubo.cours.serveur.persistance;
 
 import net.codestory.http.errors.NotFoundException;
 import ubo.cours.serveur.model.Entite;

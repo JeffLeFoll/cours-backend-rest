@@ -1,13 +1,10 @@
 package ubo.cours.serveur.Resources;
 
 import com.google.common.collect.Lists;
-import net.codestory.http.annotations.Get;
-import net.codestory.http.annotations.Post;
-import net.codestory.http.annotations.Prefix;
-import net.codestory.http.annotations.Put;
+import net.codestory.http.annotations.*;
 import net.codestory.http.errors.NotFoundException;
 import net.codestory.http.payload.Payload;
-import ubo.cours.serveur.Depot;
+import ubo.cours.serveur.persistance.Depot;
 import ubo.cours.serveur.model.Livre;
 import ubo.cours.serveur.model.Prix;
 
@@ -18,22 +15,26 @@ import java.util.Optional;
 public class LivreRessource {
 
     @Post("/")
+    @AllowOrigin("*")
     public void creer(Livre livre) {
         ensembleDeLivres.ajouterDonnee(livre);
     }
 
     @Put("/:id")
+    @AllowOrigin("*")
     public Payload maj(String id, Livre livre) {
         ensembleDeLivres.majDonnees(id, livre);
         return new Payload(201);
     }
 
     @Get("")
+    @AllowOrigin("*")
     public List<Livre> tousLesLivres() {
         return NotFoundException.notFoundIfNull(ensembleDeLivres.getDonnees());
     }
 
     @Get("/:id")
+    @AllowOrigin("*")
     public Livre trouve(String id) {
         Optional<Livre> livre = ensembleDeLivres.getDonnee(id);
 

@@ -1,13 +1,10 @@
 package ubo.cours.serveur.Resources;
 
 import com.google.common.collect.Lists;
-import net.codestory.http.annotations.Get;
-import net.codestory.http.annotations.Post;
-import net.codestory.http.annotations.Prefix;
-import net.codestory.http.annotations.Put;
+import net.codestory.http.annotations.*;
 import net.codestory.http.errors.NotFoundException;
 import net.codestory.http.payload.Payload;
-import ubo.cours.serveur.Depot;
+import ubo.cours.serveur.persistance.Depot;
 import ubo.cours.serveur.model.Film;
 import ubo.cours.serveur.model.Prix;
 
@@ -18,11 +15,13 @@ import java.util.Optional;
 public class FilmRessource {
 
     @Post("/")
+    @AllowOrigin("*")
     public void creer(Film film) {
         ensembleDeFilms.ajouterDonnee(film);
     }
 
     @Put("/:id")
+    @AllowOrigin("*")
     public Payload maj(String id, Film film) {
         ensembleDeFilms.majDonnees(id, film);
 
@@ -30,11 +29,13 @@ public class FilmRessource {
     }
 
     @Get("")
+    @AllowOrigin("*")
     public List<Film> tousLesFilms() {
         return NotFoundException.notFoundIfNull(ensembleDeFilms.getDonnees());
     }
 
     @Get("/:id")
+    @AllowOrigin("*")
     public Film trouve(String id) {
         Optional<Film> film = ensembleDeFilms.getDonnee(id);
 

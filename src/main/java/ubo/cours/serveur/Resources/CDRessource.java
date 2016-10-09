@@ -1,13 +1,10 @@
 package ubo.cours.serveur.Resources;
 
 import com.google.common.collect.Lists;
-import net.codestory.http.annotations.Get;
-import net.codestory.http.annotations.Post;
-import net.codestory.http.annotations.Prefix;
-import net.codestory.http.annotations.Put;
+import net.codestory.http.annotations.*;
 import net.codestory.http.errors.NotFoundException;
 import net.codestory.http.payload.Payload;
-import ubo.cours.serveur.Depot;
+import ubo.cours.serveur.persistance.Depot;
 import ubo.cours.serveur.model.CD;
 import ubo.cours.serveur.model.Prix;
 
@@ -18,23 +15,28 @@ import java.util.Optional;
 public class CDRessource {
 
     @Post("/")
+    @AllowOrigin("*")
     public void creer(CD cd) {
         ensembleDeCDs.ajouterDonnee(cd);
     }
 
     @Put("/:id")
+    @AllowOrigin("*")
     public Payload maj(String id, CD cd) {
         ensembleDeCDs.majDonnees(id, cd);
         return new Payload(201);
     }
 
     @Get("")
+    @AllowOrigin("*")
     public List<CD> tousLesCDs() {
         return NotFoundException.notFoundIfNull(ensembleDeCDs.getDonnees());
     }
 
     @Get("/:id")
+    @AllowOrigin("*")
     public CD trouve(String id) {
+
         Optional<CD> cd = ensembleDeCDs.getDonnee(id);
 
         return NotFoundException.notFoundIfNull(cd.get());
