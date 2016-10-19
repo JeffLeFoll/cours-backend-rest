@@ -14,6 +14,11 @@ Ou alors avec Eclipse (plugin) ou Intellij
 Dans un terminal linux : ./run.sh
 Dans un terminal windows : ./run.bat
 ```
+Si vous avez des soucis pour démarer le serveur sur votre poste, le serveur est également dispo sur une instance heroku à l'adresse suivante : 
+https://quiet-plains-77265.herokuapp.com
+```
+get https://quiet-plains-77265.herokuapp.com/livre  
+```
 
 # Resources exposées par l'API
 ## Livre
