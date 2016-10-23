@@ -6,16 +6,18 @@ public class Film extends Entite {
     private Prix prix;
     private String jaquette;
     private String type;
+    private String description;
 
     public Film() {
     }
 
-    public Film(String id, String titre, String acteurs, Prix prix, String jaquette, String type) {
+    public Film(String id, String titre, String acteurs, Prix prix, String jaquette, String type, String description) {
         this.titre = titre;
         this.acteurs = acteurs;
         this.prix = prix;
         this.jaquette = jaquette;
         this.type = type;
+        this.description = description;
         this.setId(id);
     }
 
@@ -73,5 +75,13 @@ public class Film extends Entite {
     @Override
     public int hashCode() {
         return getId().hashCode();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
